@@ -14,3 +14,5 @@ específica para a configuração do token;
 apenas usuários autenticados;
 
 ● Inicializar alguns veículos, ideal é começar 3 de cada tipo definido;
+
+● Para guardar e acessar os dados, utilize o banco de dados SQL.

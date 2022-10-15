@@ -1,0 +1,11 @@
+using DevInCar.GraphQL.Models;
+
+namespace DevInCar.GraphQL.Repositories
+{
+    public interface IVehicleRepository
+    {
+        IEnumerable<Veiculo> GetVehicles();
+        IEnumerable<Veiculo> GetByTypeVehicle(ETipoVeiculo tipoVeiculo);
+        IEnumerable<Veiculo> GetByStatusVehicle(EStatusVeiculo statusVeiculo);
+    }
+}

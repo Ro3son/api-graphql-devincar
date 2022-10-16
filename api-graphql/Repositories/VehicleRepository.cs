@@ -20,7 +20,6 @@ namespace DevInCar.GraphQL.Repositories
                 return context.Veiculos.ToList();
             }
         }
-
         public IEnumerable<Veiculo> GetByTypeVehicle(ETipoVeiculo tipoVeiculo)
         {
             using (var context = _context.CreateDbContext())
@@ -29,12 +28,31 @@ namespace DevInCar.GraphQL.Repositories
             }
            
         }
-
         public IEnumerable<Veiculo> GetByStatusVehicle(EStatusVeiculo statusVeiculo)
         {
             using (var context = _context.CreateDbContext())
             {
                 return context.Veiculos.Where(t => t.Status == statusVeiculo).ToList();
+            }
+        }
+        public IEnumerable<Veiculo> GetMaxPrice()
+        {
+            using (var context = _context.CreateDbContext())
+            {
+                var max = context.Veiculos.Max(x => x.Preco);
+
+                return context.Veiculos.Where(p => p.Preco == max).ToList();
+    
+            }
+        }
+        public IEnumerable<Veiculo> GetMinPrice()
+        {
+            using (var context = _context.CreateDbContext())
+            {
+                var min = context.Veiculos.Min(x => x.Preco);
+
+                return context.Veiculos.Where(p => p.Preco == min).ToList();
+    
             }
         }
     }

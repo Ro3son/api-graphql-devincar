@@ -7,5 +7,7 @@ namespace DevInCar.GraphQL.Repositories
         IEnumerable<Veiculo> GetVehicles();
         IEnumerable<Veiculo> GetByTypeVehicle(ETipoVeiculo tipoVeiculo);
         IEnumerable<Veiculo> GetByStatusVehicle(EStatusVeiculo statusVeiculo);
+        IEnumerable<Veiculo> GetMaxPrice();
+        IEnumerable<Veiculo> GetMinPrice();
     }
 }

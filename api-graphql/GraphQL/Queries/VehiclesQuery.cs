@@ -33,5 +33,21 @@ namespace DevInCar.GraphQL.Queries
             [Service] IVehicleRepository repository
             
         ) => repository.GetByStatusVehicle(status);
+
+        [GraphQLName("buscar_veiculo_com_maior_preco")]
+        [GraphQLDescription("Método retorna o veículo com maior preço.")]
+        public IEnumerable<Veiculo> GetByMaxPrice(
+
+            [Service] IVehicleRepository repository
+            
+        ) => repository.GetMaxPrice();
+
+        [GraphQLName("buscar_veiculo_com_menor_preco")]
+        [GraphQLDescription("Método retorna o veículo com menor preço.")]
+        public IEnumerable<Veiculo> GetByMinPrice(
+
+            [Service] IVehicleRepository repository
+            
+        ) => repository.GetMinPrice();
     }
 }

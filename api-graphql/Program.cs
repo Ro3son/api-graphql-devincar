@@ -28,7 +28,8 @@ builder.Services
        .AddTypeExtension<VeiculosQuery>()
 
     .AddMutationType()
-        .AddTypeExtension<AuthMutation>();
+        .AddTypeExtension<AuthMutation>()
+        .AddTypeExtension<VeiculosMutation>();  
 
 builder.Services
     .Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));

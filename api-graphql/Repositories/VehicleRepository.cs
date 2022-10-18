@@ -57,7 +57,7 @@ namespace DevInCar.GraphQL.Repositories
             }
         }
 
-        public Veiculo SellVehicle(int veiculoId)
+        public Veiculo SellVehicle(int veiculoId, string cpf)
         {
             using (var context = _context.CreateDbContext())
             {
@@ -67,6 +67,15 @@ namespace DevInCar.GraphQL.Repositories
                 
                 return veiculo;
             }
+        }
+
+        public void AddVehicle(Veiculo veiculo)
+        {
+             using (var context = _context.CreateDbContext())
+            {
+                context.Veiculos.Add(veiculo);
+            }
+            
         }
     }
 }

@@ -69,12 +69,16 @@ namespace DevInCar.GraphQL.Repositories
             }
         }
 
-        public void AddVehicle(Veiculo veiculo)
+        public bool AddVehicle(Veiculo veiculo)
         {
             using (var context = _context.CreateDbContext())
             {
                 context.Veiculos.Add(veiculo);
+
+                context.SaveChangesAsync();
             }
+
+            return true;
         }
 
         public bool UpdateColor(int id, Veiculo cor)
@@ -82,6 +86,18 @@ namespace DevInCar.GraphQL.Repositories
             using (var update = _context.CreateDbContext())
             {
                 update.Entry(cor).State = EntityState.Modified;
+
+                update.SaveChanges();
+            }
+
+            return true;
+        }
+
+        public bool UpdatePrice(int id, Veiculo preco)
+        {
+            using (var update = _context.CreateDbContext())
+            {
+                update.Entry(preco).State = EntityState.Modified;
 
                 update.SaveChanges();
             }

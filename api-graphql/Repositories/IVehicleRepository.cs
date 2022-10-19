@@ -10,7 +10,8 @@ namespace DevInCar.GraphQL.Repositories
         IEnumerable<Veiculo> GetMaxPrice();
         IEnumerable<Veiculo> GetMinPrice();
         Veiculo SellVehicle(int veiculoId, string cpf);
-        void AddVehicle(Veiculo veiculo);
+        bool AddVehicle(Veiculo veiculo);
         bool UpdateColor(int id, Veiculo cor);
+        bool UpdatePrice(int id, Veiculo preco);
     }
 }

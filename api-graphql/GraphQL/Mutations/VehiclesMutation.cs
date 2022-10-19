@@ -1,6 +1,5 @@
 using DevInCar.GraphQL.Models;
 using DevInCar.GraphQL.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DevInCar.GraphQL.Mutations
 {
@@ -9,41 +8,53 @@ namespace DevInCar.GraphQL.Mutations
     {
         [GraphQLName("vender_veiculo")]
         [GraphQLDescription("Método para vender veículo.")]
-        public Veiculo SellVehicle(int id, string cpf, [Service] IVehicleRepository _repository) =>
+        public Veiculo SellVehicle(
+            int id, 
+            string cpf, 
+            [Service] IVehicleRepository _repository) =>
             _repository.SellVehicle(id, cpf);
 
         [GraphQLName("criar_veiculo")]
-        [GraphQLDescription("Método para criar novo veículo.")]
-        public Veiculo PostVeiculo(
-            int veiculoId,
-            string chassi,
-            string placa,
-            string nomeModelo,
+        [GraphQLDescription("Método para criar um novo veículo.")]
+        public bool PostVeiculo(
+            VeiculoInput input,
             [Service] IVehicleRepository _repository
         )
         {
-            Veiculo veiculo = new Veiculo();
-            veiculo.VeiculoId = veiculoId;
-            veiculo.Chassi = chassi;
-            veiculo.Placa = placa;
-            veiculo.NomeModelo = nomeModelo;
+            Veiculo veiculo = new Veiculo()
+            {
+                VeiculoId = input.VeiculoId,
+                Chassi = input.Chassi,
+                Placa = input.Placa,
+                NomeModelo = input.NomeModelo
+            };
 
-            _repository.AddVehicle(veiculo);
+            return _repository.AddVehicle(veiculo);
 
-            return veiculo;
         }
 
         [GraphQLName("alterar_cor")]
         [GraphQLDescription("Método para alterar a cor de um veículo.")]
-        public bool PutVeiculo(int id, string cor, [Service] IVehicleRepository _repository)
+        public bool PutColor(int veiculoId, string cor, [Service] IVehicleRepository _repository)
+        {
+            var model = new Veiculo();
+            model.VeiculoId = veiculoId;
+            model.Cor = cor;
+
+            return _repository.UpdateColor(veiculoId, model);
+        }
+
+        [GraphQLName("alterar_valor")]
+        [GraphQLDescription("Método para alterar o valor de um veículo.")]
+        public bool PutValue(int veiculoId, decimal preco, [Service] IVehicleRepository _repository)
         {
             var model = new Veiculo 
             { 
-                VeiculoId = id, 
-                Cor = cor, 
+                VeiculoId = veiculoId, 
+                Preco = preco 
             };
 
-            return _repository.UpdateColor(id, model);
+            return _repository.UpdateColor(veiculoId, model);
         }
     }
 }

@@ -64,18 +64,29 @@ namespace DevInCar.GraphQL.Repositories
                 var veiculo = context.Veiculos
                     .Where(x => x.VeiculoId == veiculoId)
                     .FirstOrDefault();
-                
+
                 return veiculo;
             }
         }
 
         public void AddVehicle(Veiculo veiculo)
         {
-             using (var context = _context.CreateDbContext())
+            using (var context = _context.CreateDbContext())
             {
                 context.Veiculos.Add(veiculo);
             }
-            
+        }
+
+        public bool UpdateColor(int id, Veiculo cor)
+        {
+            using (var update = _context.CreateDbContext())
+            {
+                update.Entry(cor).State = EntityState.Modified;
+
+                update.SaveChanges();
+            }
+
+            return true;
         }
     }
 }

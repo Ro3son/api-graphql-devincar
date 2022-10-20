@@ -13,6 +13,21 @@ namespace DevInCar.GraphQL.Repositories
             _context = context;
         }
 
+        public IEnumerable<Usuario> GetUsers()
+        {
+            using (var context = _context.CreateDbContext())
+            {
+                return context.Usuarios.ToList();
+            }
+        }
+        public Usuario GetUser(int id)
+        {
+            using (var context = _context.CreateDbContext())
+            {
+                return context.Usuarios.Single(u => u.Id == id);
+            }
+        }
+
         public Usuario AuthUser(LoginInput login)
         {
             using (var context = _context.CreateDbContext())

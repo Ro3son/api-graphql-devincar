@@ -69,16 +69,15 @@ namespace DevInCar.GraphQL.Repositories
             }
         }
 
-        public bool AddVehicle(Veiculo veiculo)
+        public Veiculo AddVehicle(Veiculo veiculo)
         {
             using (var context = _context.CreateDbContext())
             {
                 context.Veiculos.Add(veiculo);
 
-                context.SaveChangesAsync();
             }
 
-            return true;
+            return veiculo;
         }
 
         public bool UpdateColor(int id, Veiculo cor)

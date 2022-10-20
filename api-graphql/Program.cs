@@ -20,11 +20,13 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services
     .AddGraphQLServer()
     .AddAuthorization()
-
+    
+    .AddType<Usuario>()
     .AddType<Veiculo>()
     .AddType<VeiculoModel>()
 
     .AddQueryType()
+        .AddTypeExtension<UsuariosQuery>()
        .AddTypeExtension<VeiculosQuery>()
 
     .AddMutationType()

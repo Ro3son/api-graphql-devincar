@@ -1,9 +1,11 @@
 using System.Text;
 using DevInCar.GraphQL.Context;
+using DevInCar.GraphQL.Middlewares;
 using DevInCar.GraphQL.Models;
 using DevInCar.GraphQL.Mutations;
 using DevInCar.GraphQL.Queries;
 using DevInCar.GraphQL.Repositories;
+using DevInCar.GraphQL.Subscriptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -31,8 +33,17 @@ builder.Services
 
     .AddMutationType()
         .AddTypeExtension<AuthMutation>()
-        .AddTypeExtension<VeiculosMutation>();  
+        .AddTypeExtension<VeiculosMutation>()
 
+    .AddSubscriptionType()
+        .AddTypeExtension<VeiculosSubscription>()
+
+    .AddInMemorySubscriptions()
+
+    .AddSocketSessionInterceptor<SubscriptionAuthMiddleware>();
+
+builder.Services.AddHttpContextAccessor();
+    
 builder.Services
     .Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
 builder.Services
@@ -63,7 +74,9 @@ app.UseCors("corsapp");
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseWebSockets();
+app.UseWebSockets(new WebSocketOptions() {
+    KeepAliveInterval = TimeSpan.FromSeconds(30)
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
